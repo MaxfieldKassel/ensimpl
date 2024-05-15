@@ -8,4 +8,5 @@ RUN pip install -r requirements.txt
 COPY ./ensimpl /app/ensimpl
 
 #Export path for ensimpl
-ENV ENSIMPL_DIR=/app/ensimpl
+ENV ENSIMPL_DIR=/data
+ENV MODULE_NAME="ensimpl.main"

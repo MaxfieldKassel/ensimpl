@@ -13,5 +13,21 @@ docker compose up -d
 # Create the database
 The configuration file is located in `ensimpl/config/ensimpl.ensembl.conf`. Add more rows to add more databases.
 ```bash
-docker compose exec ensimpl python3 /app/ensimpl/cli.py create
+docker compose exec ensimpl python3 /app/ensimpl/cli.py create -v
 ```
+
+## Project Structure
+
+- `README.md` - This file.
+- `DEV.md` - Development notes and guidelines.
+- `docker-compose.yml` & `Dockerfile` - Docker configuration for container setup.
+- `requirements.txt` - List of Python dependencies.
+- `setup.py` - Setup script for the project installation.
+
+### `ensimpl/`
+
+- `__init__.py`, `utils.py`, `main.py`, `fastapi_utils.py`, `cli.py` - Core application and CLI setup.
+- `db/` - Database interaction modules.
+- `routers/` - API routing.
+- `static/` & `templates/` - Front-end assets and HTML templates.
+- `config/` - Configuration files.
