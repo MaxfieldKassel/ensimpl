@@ -1,0 +1,11 @@
+version: '3.8' # Use a version compatible with your Docker Engine
+services:
+  ensimpl:
+    build: . # Path to the directory containing the Dockerfile
+    ports:
+      - "51159:80" # Map port 51159 of the container to port 80 on the host
+    volumes:
+      - ./data:/data
+    restart: always
+    environment:
+      - URL_PREFIX=http://attie.diabetes.wisc.edu:51159/

@@ -7,3 +7,5 @@ RUN pip install -r requirements.txt
 
 COPY ./ensimpl /app/ensimpl
 
+#Export path for ensimpl
+ENV ENSIMPL_DIR=/app/ensimpl
