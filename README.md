@@ -7,7 +7,7 @@ This is a python package that makes it simple to use
 # To Setup
 Run docker compose to start the server, to run in the background use the `-d` flag.
 ```bash
-docker compose up -d 
+docker compose up -d --build
 ```
 
 # Create the database
