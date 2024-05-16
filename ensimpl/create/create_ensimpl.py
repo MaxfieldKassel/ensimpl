@@ -122,8 +122,8 @@ def create(ensembl, species, directory, resource):
 
         for species_id, ensembl_ref in sorted(release_val.items()):
             if not species or (species_id in species):
-                LOG.warning('Generating ensimpl database for Ensembl '
-                            f'release: {release_ver}')
+                LOG.warning(
+                    f'Generating ensimpl database for Ensembl release: {release_ver}')
 
                 ensimpl_file = f'ensimpl.{release_ver}.{species_id}.db3'
 
@@ -137,36 +137,54 @@ def create(ensembl, species, directory, resource):
                 LOG.info('Extracting chromosomes...')
                 chromosomes_karyotypes = \
                     ensembl_db.extract_chromosomes_karyotypes(ensembl_ref)
-    
+                if not chromosomes_karyotypes:
+                    LOG.error('No chromosomes found for this species')
+                    continue
+
                 LOG.info('Extracting genes...')
                 genes = ensembl_db.extract_ensembl_genes(ensembl_ref)
-    
+                if not genes:
+                    LOG.error('No genes found for this species')
+                    continue
+
                 LOG.info('Extracting synonyms...')
                 synonyms = ensembl_db.extract_synonyms(ensembl_ref)
-    
+                if not synonyms:
+                    LOG.error('No synonyms found for this species')
+                    continue
+
                 LOG.info('Extracting transcript, protein, and exons...')
                 gtep = ensembl_db.extract_ensembl_gtpe(ensembl_ref)
-    
+                if not gtep:
+                    LOG.error('No transcript, protein, or exons found for this species')
+                    continue
+
                 LOG.info('Extracting homologs...')
                 homologs = ensembl_db.extract_ensembl_homologs(ensembl_ref)
+                if not homologs:
+                    LOG.error('No homologs found for this species')
+                    continue
 
                 LOG.info('Inserting chromsomes...')
                 ensimpl_db.insert_chromosomes_karyotypes(ensimpl_file,
                                                          ensembl_ref,
                                                          chromosomes_karyotypes)
-    
+                if not chromosomes_karyotypes:
+                    LOG.error('No chromosomes found for this species')
+                    continue
+
                 LOG.info('Inserting genes...')
                 ensimpl_db.insert_genes(ensimpl_file,
                                         ensembl_ref,
                                         genes,
                                         synonyms,
                                         homologs)
-    
+
                 LOG.info('Inserting transcript, protein, and exons...')
                 ensimpl_db.insert_gtpe(ensimpl_file,
                                        ensembl_ref,
                                        gtep)
-    
+
                 LOG.info('Inserting homologs...')
                 ensimpl_db.insert_homologs(ensimpl_file,
                                            ensembl_ref,
@@ -177,5 +195,3 @@ def create(ensembl, species, directory, resource):
                                     ensembl_ref)
 
     LOG.info('DONE')
-
-
