@@ -8,4 +8,4 @@ services:
       - ./data:/data
     restart: always
     environment:
-      - URL_PREFIX=http://attie.diabetes.wisc.edu:51159/
+      - URL_PREFIX=http://attie.diabetes.wisc.edu:51159
