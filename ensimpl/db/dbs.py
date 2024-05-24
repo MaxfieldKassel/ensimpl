@@ -26,6 +26,10 @@ def get_all_ensimpl_dbs(directory: str) -> Tuple:
 
     for db in databases:
         meta_info = meta.db_meta(db)
+        if not 'assembly' in meta_info:
+            print("Assembly not found in database:",db)
+            continue
+            
         assembly = meta_info['assembly']
         release = meta_info['release']
         species = meta_info['species']
